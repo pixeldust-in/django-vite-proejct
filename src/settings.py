@@ -61,6 +61,8 @@ INSTALLED_APPS = [
     # Thirdpaty
     "django_extensions",
     "rest_framework",
+    "django_vite",
+    "corsheaders",
     # custom
     "core",
     # Keep this at the end
@@ -70,12 +72,15 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+CORS_ALLOWED_ORIGINS = config("CORS_ALLOWED_ORIGINS", cast=Csv(), default=[])
 
 ROOT_URLCONF = "urls"
 
@@ -131,6 +136,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Vite Configuration
+DJANGO_VITE_ASSETS_PATH = BASE_DIR / "assets" / "dist"
+DJANGO_VITE_DEV_MODE = DEBUG
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
@@ -155,6 +164,7 @@ STATIC_ROOT = BASE_DIR / "assets"
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
+    DJANGO_VITE_ASSETS_PATH,
     MEDIA_ROOT,
 ]
 

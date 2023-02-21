@@ -4,6 +4,7 @@ from django.urls import include, path
 
 urlpatterns = [
     path("super-manager/", admin.site.urls),
+    path("", include("core.urls")),
 ]
 
 
